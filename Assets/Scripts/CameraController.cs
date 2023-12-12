@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
     public float panSpeed = 15f;
     public float zoomSpeed = 500f;
 
-    protected float minimalZoom = 15f;
+    protected float minimalZoom = 5f;
     protected float maximalZoom = 35f;
     // Start is called before the first frame update
     void Start()
@@ -19,21 +20,21 @@ public class CameraController : MonoBehaviour
     {
         Vector3 pos = transform.position;
         if (Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow) || 
-            (MainController.instance.cState == MainController.eGameState.move && Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.y >= (Screen.height * .75f)) )
+            (!EventSystem.current.IsPointerOverGameObject() && MainController.instance.cState == MainController.eGameState.move && Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.y >= (Screen.height * .75f)) )
 		{
             pos.z += panSpeed * Time.deltaTime;
 		}else if (Input.GetKey("s") || Input.GetKey(KeyCode.DownArrow) || 
-            (MainController.instance.cState == MainController.eGameState.move && Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.y <= (Screen.height * .25f)) )
+            (!EventSystem.current.IsPointerOverGameObject() && MainController.instance.cState == MainController.eGameState.move && Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.y <= (Screen.height * .25f)) )
         {
             pos.z -= panSpeed * Time.deltaTime;
         }
 
         if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow) || 
-            (MainController.instance.cState == MainController.eGameState.move && Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.x <= (Screen.width * .25f)) )
+            (!EventSystem.current.IsPointerOverGameObject() && MainController.instance.cState == MainController.eGameState.move && Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.x <= (Screen.width * .25f)) )
         {
             pos.x -= panSpeed * Time.deltaTime;
         }else if (Input.GetKey("d") || Input.GetKey(KeyCode.RightArrow) || 
-            (MainController.instance.cState == MainController.eGameState.move && Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.x >= (Screen.width * .75f)) )
+            (!EventSystem.current.IsPointerOverGameObject() && MainController.instance.cState == MainController.eGameState.move && Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.x >= (Screen.width * .75f)) )
         {
             pos.x += panSpeed * Time.deltaTime;
         }
