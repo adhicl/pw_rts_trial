@@ -35,7 +35,17 @@ public class Portal : MonoBehaviour
                 this.GetComponent<MeshRenderer>().material = mSolid;
                 isNotAlive = false;
             }
-        }   
+		}
+		else
+		{
+            timeAlive += Time.deltaTime;
+            if (timeAlive >= 10f)   //10 sec destroy
+			{
+                MainController.instance.removeObject(this.transform);
+                Destroy(this.gameObject);
+            }
+		}
+
     }
 
     public void DestroyMyself()
