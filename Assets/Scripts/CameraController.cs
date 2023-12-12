@@ -18,18 +18,22 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         Vector3 pos = transform.position;
-        if (Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow) || (Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.y >= (Screen.height * .75f)) )
+        if (Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow) || 
+            (MainController.instance.cState == MainController.eGameState.move && Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.y >= (Screen.height * .75f)) )
 		{
             pos.z += panSpeed * Time.deltaTime;
-		}else if (Input.GetKey("s") || Input.GetKey(KeyCode.DownArrow) || (Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.y <= (Screen.height * .25f)) )
+		}else if (Input.GetKey("s") || Input.GetKey(KeyCode.DownArrow) || 
+            (MainController.instance.cState == MainController.eGameState.move && Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.y <= (Screen.height * .25f)) )
         {
             pos.z -= panSpeed * Time.deltaTime;
         }
 
-        if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow) || (Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.x <= (Screen.width * .25f)) )
+        if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow) || 
+            (MainController.instance.cState == MainController.eGameState.move && Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.x <= (Screen.width * .25f)) )
         {
             pos.x -= panSpeed * Time.deltaTime;
-        }else if (Input.GetKey("d") || Input.GetKey(KeyCode.RightArrow) || (Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.x >= (Screen.width * .75f)) )
+        }else if (Input.GetKey("d") || Input.GetKey(KeyCode.RightArrow) || 
+            (MainController.instance.cState == MainController.eGameState.move && Input.GetKey(KeyCode.Mouse0) && Input.mousePosition.x >= (Screen.width * .75f)) )
         {
             pos.x += panSpeed * Time.deltaTime;
         }
