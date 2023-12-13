@@ -10,7 +10,6 @@ public class UnitAI : MonoBehaviour
     void Start()
     {
         nAgent = GetComponent<NavMeshAgent>();
-        nAgent.speed = 10f;
     }
 
     // Update is called once per frame

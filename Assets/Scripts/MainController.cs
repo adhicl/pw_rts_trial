@@ -11,7 +11,9 @@ public class MainController : MonoBehaviour
     public GameObject gUnit;
 
     public GameObject tempPortal;
-    
+    public GameObject tempEffectIn;
+    public GameObject tempEffectOut;
+
     public GameObject prefabPortal;
     
     public int totalPortal;
@@ -93,4 +95,16 @@ public class MainController : MonoBehaviour
             default: return "";
 		}
 	}
+
+    public void PlayEffectEnter(Vector3 position)
+	{
+        tempEffectIn.transform.position = position;
+        tempEffectIn.GetComponent<ParticleSystem>().Play();
+	}
+
+    public void PlayEffectOut(Vector3 position)
+    {
+        tempEffectOut.transform.position = position;
+        tempEffectOut.GetComponent<ParticleSystem>().Play();
+    }
 }

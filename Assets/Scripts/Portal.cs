@@ -11,6 +11,7 @@ public class Portal : MonoBehaviour
     private bool isNotAlive = true;
 
     public GameObject friendPortal;
+    public GameObject effectPortal;
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +20,16 @@ public class Portal : MonoBehaviour
         {
             this.GetComponent<MeshRenderer>().material = mTransparent;
             isNotAlive = true;
-		}
+            effectPortal.SetActive(false);
+
+        }
 		else
 		{
             this.GetComponent<MeshRenderer>().material = mSolid;
             isNotAlive = false;
+            effectPortal.SetActive(true);
+
+            AudioController.instance.PlaySoundBuild();
         }
     }
 
@@ -36,6 +42,7 @@ public class Portal : MonoBehaviour
             {
                 this.GetComponent<MeshRenderer>().material = mSolid;
                 isNotAlive = false;
+                effectPortal.SetActive(true);
             }
 		}
 		else
@@ -53,13 +60,13 @@ public class Portal : MonoBehaviour
 	{
 		if (other.tag == "Player")
 		{
-            //disablePortal = true;
-            //friendPortal.GetComponent<Portal>().disablePortal = true;
-            Vector3 targetTeleport = friendPortal.transform.position + (Vector3.forward * 2f);
+            AudioController.instance.PlaySoundPortal();
+            MainController.instance.PlayEffectEnter(other.transform.position);
+            Vector3 targetTeleport = friendPortal.transform.position + (Vector3.forward * -2f);
 
             MainController.instance.gUnit.transform.position = targetTeleport;    //add some distance
             MainController.instance.gUnit.GetComponent<UnitAI>().ClearTargetPosition();
-
+            MainController.instance.PlayEffectOut(targetTeleport);
             Camera.main.GetComponent<CameraController>().MoveCamera(targetTeleport);
         }
 	}
