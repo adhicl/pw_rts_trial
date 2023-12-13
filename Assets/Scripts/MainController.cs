@@ -16,6 +16,7 @@ public class MainController : MonoBehaviour
     
     public int totalPortal;
     protected List<Transform> createdObject;
+    protected GameObject friendPortal;
 
     public static MainController instance { get; private set; }
 
@@ -47,9 +48,16 @@ public class MainController : MonoBehaviour
         GameObject newObject = GameObject.Instantiate(prefabPortal);
         createdObject.Add(newObject.transform);
 
+        if (totalPortal == 0)
+		{
+            friendPortal = newObject;
+		}
         totalPortal++;
         if (totalPortal >= 2)   //finish create adjacent portal
 		{
+            newObject.GetComponent<Portal>().friendPortal = friendPortal;
+            friendPortal.GetComponent<Portal>().friendPortal = newObject;
+            friendPortal = null;
             cState = eGameState.empty;
 		}
         return newObject;
@@ -71,6 +79,14 @@ public class MainController : MonoBehaviour
         for (int i = createdObject.Count - 1; i >= 0; i--)
         {
             createdObject[i].GetComponent<Portal>().DestroyMyself();
+        }
+    }
+
+    public void enablePortal()
+    {
+        for (int i = createdObject.Count - 1; i >= 0; i--)
+        {
+            createdObject[i].GetComponent<Portal>().disablePortal = false;
         }
     }
 

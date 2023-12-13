@@ -10,6 +10,8 @@ public class Portal : MonoBehaviour
     private float timeAlive;
     private bool isNotAlive = true;
 
+    public GameObject friendPortal;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,12 +45,23 @@ public class Portal : MonoBehaviour
 			{
                 MainController.instance.removeObject(this.transform);
                 Destroy(this.gameObject);
-            }
+            }            
 		}
-
     }
 
-    public void DestroyMyself()
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.tag == "Player" && !this.disablePortal)
+		{
+            //disablePortal = true;
+            //friendPortal.GetComponent<Portal>().disablePortal = true;
+
+            MainController.instance.gUnit.transform.position = friendPortal.transform.position + (Vector3.forward * 2f);    //add some distance
+            MainController.instance.gUnit.GetComponent<UnitAI>().ClearTargetPosition();
+        }
+	}
+
+	public void DestroyMyself()
 	{
         if (isNotAlive)
 		{

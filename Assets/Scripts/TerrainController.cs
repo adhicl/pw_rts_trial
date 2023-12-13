@@ -55,6 +55,7 @@ public class TerrainController : MonoBehaviour
                     if (this.GetComponent<Collider>().Raycast(ray, out hit, Mathf.Infinity))
                     {
                         hitPosition = hit.point;
+                        MainController.instance.gUnit.GetComponent<UnitAI>().SetTargetPosition(hitPosition);
                     }
 
                     //GameObject newPortal = MainController.instance.createObject();
