@@ -82,14 +82,6 @@ public class MainController : MonoBehaviour
         }
     }
 
-    public void enablePortal()
-    {
-        for (int i = createdObject.Count - 1; i >= 0; i--)
-        {
-            createdObject[i].GetComponent<Portal>().disablePortal = false;
-        }
-    }
-
     public string GetStateString()
 	{
 		switch (cState)

@@ -51,7 +51,7 @@ public class Portal : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Player" && !this.disablePortal)
+		if (other.tag == "Player")
 		{
             //disablePortal = true;
             //friendPortal.GetComponent<Portal>().disablePortal = true;
