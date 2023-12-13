@@ -55,9 +55,12 @@ public class Portal : MonoBehaviour
 		{
             //disablePortal = true;
             //friendPortal.GetComponent<Portal>().disablePortal = true;
+            Vector3 targetTeleport = friendPortal.transform.position + (Vector3.forward * 2f);
 
-            MainController.instance.gUnit.transform.position = friendPortal.transform.position + (Vector3.forward * 2f);    //add some distance
+            MainController.instance.gUnit.transform.position = targetTeleport;    //add some distance
             MainController.instance.gUnit.GetComponent<UnitAI>().ClearTargetPosition();
+
+            Camera.main.GetComponent<CameraController>().MoveCamera(targetTeleport);
         }
 	}
 
